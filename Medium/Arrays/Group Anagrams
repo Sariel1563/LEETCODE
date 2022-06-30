@@ -1,0 +1,105 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> ans = new ArrayList<>();
+        ArrayList<Integer> used = new ArrayList<>();
+        for(int i = 0; i < strs.length; i++)
+        {
+            if(used.contains(i))
+                continue;
+            List<String> l = new ArrayList<>();
+            l.add(strs[i]);
+            int[] perm = new int[26];
+            for(int j = 0; j < strs[i].length(); j++)
+                perm[strs[i].charAt(j)-'a']++;
+            int[] temp = new int[26];
+            for(int j = i+1; j < strs.length; j++)
+            {
+                populate(perm, temp);
+                if(strs[j].length() != strs[i].length())
+                    continue;
+                for(int k = 0; k < strs[j].length(); k++)
+                    temp[strs[j].charAt(k)-'a']--;
+                if(matches(temp))
+                {
+                    l.add(strs[j]);
+                    used.add(j);
+                }
+            }
+            ans.add(l);
+        }
+        return ans;
+    }
+    public void populate(int[] perm, int[] temp)
+    {
+        for(int j = 0; j < 26; j++)
+                temp[j] = perm[j];
+    }
+    public boolean matches(int[] n)
+    {
+        for(int i = 0; i < n.length; i++)
+        {
+            if(n[i] != 0)
+                return false;
+        }
+        return true;
+    }
+    //old ideas: give each character integer value to make each string a unique sum
+    //ex: 2^(position in alph), a = 1, b = 2, c = 4, d = 8, e = 16. Certain overlapping values break (t-u-t).
+    //
+    /*public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> ans = new ArrayList<>();
+        ArrayList<Integer> used = new ArrayList<>();
+        for(int i = 0; i < strs.length; i++)
+        {
+            if(used.contains(i))
+                continue;
+            List<String> temp = new ArrayList<>();
+            temp.add(strs[i]);
+            char val[] = strs[i].toCharArray();
+            Arrays.sort(val);
+            // double val = getVal(strs[i]);
+            for(int j = i+1; j < strs.length; j++)
+            {
+                char t[] = strs[j].toCharArray();
+                Arrays.sort(t);
+                System.out.println("val = " + Arrays.toString(val));
+                System.out.println(strs[j] + " = " + Arrays.toString(t));
+                if(same(val, t))
+                {
+                    temp.add(strs[j]);
+                    used.add(j);
+                }
+                // double t = getVal(strs[j]);
+                // if(strs[i].length() == strs[j].length() && val == t)
+                // {
+                //     temp.add(strs[j]);
+                //     used.add(j);
+                // }
+            }
+            ans.add(temp);
+        }
+        return ans;
+    }
+    
+    public boolean same(char[] a, char[] b)
+    {
+        for(int i = 0; i < a.length; i++)
+        {
+            if(a[i] != b[i])
+                return false;
+        }
+        return true;
+    }
+//     public double getVal(String s)
+//     {
+//         double ans = 0;
+        
+//         //for character in string
+//   // sum = sum * R + ord(character) mod p
+//         for(int i = 0; i < s.length(); i++)
+//         {
+//             ans *= ans * 26 + (s.charAt(i) - 71) % 97;
+//         }
+//         return ans;
+//     }*/
+}
