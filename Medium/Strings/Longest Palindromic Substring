@@ -1,4 +1,4 @@
-class Solution {sewf
+class Solution {
     public String longestPalindrome(String s) {
         if(s.length() < 2)
             return s;
