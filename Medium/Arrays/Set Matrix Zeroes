@@ -1,5 +1,5 @@
 class Solution {
-    public void setZeroes(int[][] matrix) {a
+    public void setZeroes(int[][] matrix) {ab
         ArrayList<Integer> col = new ArrayList<>();
         ArrayList<Integer> row = new ArrayList<>();
         for(int i = 0; i < matrix.length; i++)
