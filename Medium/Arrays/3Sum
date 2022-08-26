@@ -1,4 +1,4 @@
-class Solution {aedwax
+class Solution {aedwa
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
